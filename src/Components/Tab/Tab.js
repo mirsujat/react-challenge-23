@@ -5,6 +5,7 @@ const Tab = (props) => {
 
 const onClick = () => {
   const {label, onClick} = props;
+
   onClick( console.log("I am clicked"));
 }  
 
