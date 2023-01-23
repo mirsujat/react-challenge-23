@@ -1,23 +1,12 @@
-
 import React from 'react';
 
 const Tab = (props) => {
 
-const onClick = () => {
-  const {label, onClick} = props;
+    const onClick = () => props.onClick(props.label);
 
-  onClick( console.log("I am clicked"));
-}  
-
-
-  return(
-    <li 
-     onClick={onClick}
-     
-     > 
-     {props.label} 
-     </li>
-  )
-};
+    return (
+        <li onClick={onClick} >{props.label}</li>
+    );
+}
 
 export default Tab;
