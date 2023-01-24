@@ -12,6 +12,8 @@ const  App = () => {
         <div label="tab one">Tab ....one content</div>
         <div label="tab two">Tab two... content</div>
       </Tabs>
+
+      
     </div>
   );
 }
