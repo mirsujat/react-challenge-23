@@ -19,11 +19,14 @@ class Tabs extends Component {
             <div>
             <ol>
                 {this.props.children.map((child, i) =>(
-                    <Tab
+                    <li
                         key={i}
-                        label={child.props.label}
-                        onClick={this.onClickTabItem}
-                    ></Tab>
+                        onClick={ () => this.onClickTabItem(child.props.label)}
+                        actoveTab={this.state.activeTab}
+                    >
+                    {child.props.label}
+                    
+                    </li>
 
                 ))}
             </ol>
