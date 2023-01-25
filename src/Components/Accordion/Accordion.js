@@ -10,16 +10,23 @@ class Accordion extends Component {
     }
 
     onClickTabItem = (tab) =>{
-       
-            this.setState(prevState => {
-                return{ 
-                    isOpen: !prevState.isOpen,
-                    activeTab: tab
-                }
-               
-
-            })
+        //  const {isOpen, activeTab} = this.state;
+        //  const {label} = this.props.children.props;
         
+        
+           if(!this.state.isOpen){
+            return  this.setState({
+                    isOpen: true,
+                    activeTab: tab
+            })
+           }
+             if( this.state.isOpen){
+                return this.setState({
+                isOpen: false,
+                activeTab: tab
+            })
+         }
+         return;
 
     }
 
