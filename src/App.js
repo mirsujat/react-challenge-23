@@ -19,7 +19,10 @@ const  App = () => {
               <div>Accordion two</div>
               <div>Accordion two</div>
             </div>
-            <div label="three">Accordion three</div>
+            <div label="three">
+              <div>Accordion three</div>
+              <div>Accordion three</div>
+            </div>
          </Accordion>
     </div>
   );
