@@ -10,7 +10,7 @@ const  App = () => {
   return (
     <div className="App">
       Hello world From App
-         <Accordion>
+         <Accordion >
             <div label="one" >
               <div>Accordion one</div>
               <div>Accordion one</div>
