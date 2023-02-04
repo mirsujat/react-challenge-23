@@ -3,22 +3,30 @@ import React, { Component } from 'react';
 class TestTab extends Component {
     constructor(props) {
         super(props);
-        this.state = {  };
+
+        
+        this.state = {   };
     }
+
+   
     render() {
         return (
             <div>
                 <ol>
-                    <li>one</li>
-                    <li>two</li>
-                    <li>three</li>
+                    {this.props.children.map((child, i) =>(
+                        <li 
+                        key={i}>{child.props.label}</li>
+                    ))}
                 </ol>
-                 <div>
-                    <div>content of tab one</div>
-                    <div>content of tab two</div>
-                    <div>content of tab three</div>
-                </div>
+                <div>
+                    {this.props.children.map((child, i) =>{
+                        
+                        if(this.state.label !== child.props.label) return undefined;
+                        return child;
 
+                    
+                    })}
+                </div>
             </div>
         );
     }
