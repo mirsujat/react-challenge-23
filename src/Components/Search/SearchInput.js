@@ -8,13 +8,10 @@ class SearchInput extends Component {
     }
 
 componentDidMount(){
-  fetch("https://ip.nf/me.json")
+    fetch("https://ip.nf/me.json")
                 .then(res => res.json())
                 .then(res => Object.assign({}, res.ip))
-                .then(res => this.setState({result: res}));
-               
-              
-   
+                .then(res => this.setState({result: res})); 
 };
 
     render() {
