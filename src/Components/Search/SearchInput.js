@@ -3,24 +3,44 @@ import React, { Component } from 'react';
 class SearchInput extends Component {
     constructor(props) {
         super(props);
-        const result = {};
-        this.state = { result };
+        
+        this.state = { 
+            result: "",
+            searchTerm: "me", 
+            };
     }
 
 componentDidMount(){
-    fetch("https://ip.nf/me.json")
+    const {searchTerm} = this.state;
+    if(searchTerm === "me"){
+            fetch(`https://ip.nf/${searchTerm}.json`)
                 .then(res => res.json())
                 .then(res => Object.assign({}, res.ip))
                 .then(res => this.setState({result: res})); 
+    }else{
+        return;
+    }
+    
 };
+
+    handleChange = (e) =>{
+        const {name, value} = e.target;
+        this.setState({ [name] : value });
+    }
 
     render() {
         console.log(" Return result", this.state.result);
-        console.log("Return IP", this.state.result.ip);
+        console.log("Return IP:", this.state.result.toString(this.state.result.ip).length);
+        console.log("searchTerm:", this.state.searchTerm);
         
         return (
             <form>
-                <input type="text" />
+                <input 
+                type="text" 
+                name="searchTerm" 
+                value={this.state.searchTerm} 
+                onChange={this.handleChange}  
+                />
                 <input type="submit" /> 
                 <br></br>
                 <br></br>
