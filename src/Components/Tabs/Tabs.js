@@ -22,7 +22,7 @@ class Tabs extends Component {
                     <li
                         key={i}
                         onClick={ () => this.onClickTabItem(child.props.label)}
-                        actoveTab={this.state.activeTab}
+                        activeTab={this.state.activeTab}
                     >
                     {child.props.label}
                     
