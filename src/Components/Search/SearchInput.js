@@ -12,7 +12,8 @@ class SearchInput extends Component {
 
 componentDidMount(){
     const {searchTerm} = this.state;
-    if(searchTerm === "me"){
+    const regex = new RegExp("\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b");
+    if(searchTerm === "me" || regex.test(searchTerm)){
             fetch(`https://ip.nf/${searchTerm}.json`)
                 .then(res => res.json())
                 .then(res => Object.assign({}, res.ip))
@@ -24,8 +25,8 @@ componentDidMount(){
 };
 
     handleChange = (e) =>{
-        const {name, value} = e.target;
-        this.setState({ [name] : value });
+        const { value} = e.target;
+        this.setState({ searchTerm : value });
     }
 
     render() {
@@ -37,7 +38,7 @@ componentDidMount(){
             <form>
                 <input 
                 type="text" 
-                name="searchTerm" 
+                name="searchTerm"
                 value={this.state.searchTerm} 
                 onChange={this.handleChange}  
                 />
