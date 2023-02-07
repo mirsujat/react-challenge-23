@@ -7,6 +7,7 @@ class SearchIp extends Component {
             searchTerm: "",
             result: "",
             loading: true,
+            ip: "",
             
         };
     }
@@ -14,19 +15,11 @@ class SearchIp extends Component {
 
 
     componentDidMount() {
-        fetch("https://ip.nf/me.json")
-            .then(res => res.json())
-            .then(res => res.ip)
-            .then(res => this.setState({
-                result: res,
-                loading: false,
-                
-            }))
+        this.fetch("me");
     }
 
     componentDidUpdate(prevProps, prevState){
-        const {searchTerm} = this.state;
-        if(searchTerm !== prevState.searchTerm && searchTerm.toString(searchTerm).length >= 15){
+        if(this.state.searchTerm !== prevState.searchTerm ){
             this.fetch(this.state.searchTerm);
         }
     }
@@ -38,23 +31,28 @@ class SearchIp extends Component {
     }
 
     fetch = (param) =>{
+        if(param.length >= 14 || param === "me"){
         fetch(`https://ip.nf/${param}.json`)
             .then(res => res.json())
             .then(res => res.ip)
             .then(res => this.setState({
                 result: res,
                 loading: false,
-                
+                ip: res.ip,
             }))
+        }
 
     } 
 
 
     render() {
 
-        console.log("ip Length:", this.state.result.toString(this.state.result.ip).length);
-
+        console.log("ip Length:", this.state.ip.length);
+        console.log("searchterm Length: ", this.state.searchTerm.length);
         let content;
+        if(this.state.loading === true){
+            content= <span>Loading...</span>
+        }
         if(this.state.loading === false){
             content = <span>{this.state.result.ip}</span>
         }
@@ -64,7 +62,6 @@ class SearchIp extends Component {
                 <input 
                 type="text" 
                 value={this.state.searchTerm}
-                searchterm={this.state.searchTerm}
                 onChange={this.handleChange}
                  />
                 <br></br>
