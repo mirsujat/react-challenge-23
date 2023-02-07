@@ -24,9 +24,7 @@ class SearchInput extends Component {
 
 
     componentDidUpdate(prevProps, prevState){
-    
         if(this.state.searchTerm !== prevState.searchTerm){
-         
             this.fetchData(this.state.searchTerm);
         }
     }
