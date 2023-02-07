@@ -6,40 +6,32 @@ class SearchInput extends Component {
         
         this.state = { 
             result: null,
-            searchTerm: "me",
+            searchTerm: "",
             loading: true, 
             };
     }
 
-componentDidMount(){
-    const {searchTerm} = this.state;
-            fetch(`https://ip.nf/${searchTerm}.json`)
-                .then(res => res.json())
-                .then(res => Object.assign({}, res.ip))
-                .then(res => this.setState({result: res, loading: false})); 
-};
 
-componentDidUpdate(prevProps, prevState){
-    const {searchTerm} = this.state;
-    if(this.state.searchTerm !== prevState.searchTerm){
-         fetch(`https://ip.nf/${searchTerm}.json`)
+
+    componentDidMount(){
+        const {searchTerm} = this.state;
+            fetch(`https://ip.nf/me.json`)
                 .then(res => res.json())
                 .then(res => Object.assign({}, res.ip))
-                .then(res => this.setState({result: res, loading: false})); 
+                .then(res => this.setState({result: res, loading: false, searchTerm: res.ip})); 
+    };
+
+
+
+    componentDidUpdate(prevProps, prevState){
+    
+        if(this.state.searchTerm !== prevState.searchTerm){
+         
+            this.fetchData(this.state.searchTerm);
+        }
     }
-}
 
-// shouldComponentUpdate(nextProps, nextState){
-//     const {searchTerm} = this.state;
-//     //const regex = new RegExp(`/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/`);       
-//        if(searchTerm !== nextState.searchTerm ){
-//           return true;
-//        }
-//        if(this.props.value !== nextProps.value){
-//         return true;
-//        }
-//        return false;
-// }
+
 
 
     handleChange = (e) =>{
@@ -47,39 +39,43 @@ componentDidUpdate(prevProps, prevState){
         this.setState({ searchTerm : value });
     }
 
+    fetchData = (SearchQuery) =>{
+        const URL = `https://ip.nf/${SearchQuery}.json`;
+
+        return fetch(URL)
+                .then(res => res.json())
+                .then(res => Object.assign({}, res.ip))
+                .then(res => this.setState({result: res, loading: false, searchTerm: res.ip})); 
+  }
     
 
     render() {
-        // console.log(" Return result", this.state.result);
-        // console.log("Return IP length:", this.state.result.toString(this.state.result.ip).length);
-        // console.log("searchTerm:", this.state.searchTerm);
+
+
         let content;
         if(this.state.loading === true){
-             content = <div>Loading....</div>
+             content = <span>Loading....</span>
 
         }
         if(this.state.loading === false){
-           content = <div>{this.state.result.ip}</div>
+           content = <span>{this.state.result.ip}</span>
             
         }
        
 
         return (
             <div>
-            <form>
+        
                 <input 
                 type="text" 
-                name="searchTerm"
-                value={this.state.searchTerm} 
+                value={this.state.searchTerm}
                 onChange={this.handleChange}  
                 />
-                <input type="submit" /> 
                 <br></br>
                 <br></br>
                 <br></br>
                 <br></br>
                 
-            </form>
             <div>Your IP Address: {content}</div>
             </div>
         );
