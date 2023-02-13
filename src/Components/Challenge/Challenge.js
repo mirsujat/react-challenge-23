@@ -3,41 +3,40 @@ import React, { Component } from 'react';
 class Challenge extends Component {
     constructor(props) {
         super(props);
-        this.state = { 
-            label: this.props.children[0].props.label,
-         };
+
+        const openSection = {};
+        this.state = { openSection };
     }
 
-    clickHandler =(tab) =>{
-        this.setState({ label: tab })
+    onClickHandler = (label) =>{
+        const isOpen  = !!this.state.openSection[label];
+        this.setState({
+            openSection: {
+                [label] : !isOpen
+            }
+        })
     }
-
-
 
     render() {
         return (
             <div>
-                <h1>This is Tab Component</h1>
-                <div>
-                    <ol>
-                      {this.props.children.map((child, i) =>(
-                        <li 
-                        key={i}
-                        onClick={() => this.clickHandler(child.props.label)}
-                        >
-                        {child.props.label}
-                        </li>
-                      ) )}  
-                    </ol>
-                </div>
+                <h1>This is Accordion Component</h1>
 
                 <div>
-                    {this.props.children.map((child, i) =>{
-                        if(this.state.label !== child.props.label) return undefined;
-                        return child;
-                    })}
+                    {this.props.children.map((child, i) =>(
+                        <div key={i}>
+                            <p
+                            onClick={ () => this.onClickHandler(child.props.label) }
+                            > 
+                                {child.props.label}
+                            </p>
+                           <div>
+                            {this.state.openSection[child.props.label] && child}
+                           </div>
+                        </div>
+                        
+                    ))}
                 </div>
-
             </div>
         );
     }
