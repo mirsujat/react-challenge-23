@@ -20,7 +20,7 @@ const Challenge = () => {
 
 
 
-        fetchIp(searchTerm || "me");
+        fetchIp("me" || searchTerm );
 
     }, [searchTerm])
 
