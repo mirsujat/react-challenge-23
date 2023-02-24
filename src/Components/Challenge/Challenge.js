@@ -4,24 +4,31 @@ const Challenge = () => {
     const [ searchTerm, setSearchTerm ] = useState("");
     const [result, setResult] = useState({});
     const [loading, setLoading] = useState(true);
+    const [ errMsg, setErrMsg] = useState("");
 
-    const IPREGEX = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+    
+   
+
     useEffect(() =>{
+        const IPREGEX = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
         const fetchIp = (param) =>{
             if(IPREGEX.test(param) || param === "me"){
-                fetch(`https://ip.nf/${param}.json`)
+               return fetch(`https://ip.nf/${param}.json`)
                .then(res => res.json())
                .then(res =>  res.ip)
                .then(data => {
                     setResult(data)
                     setLoading(false)
                }) 
+            }else{
+                setErrMsg("Invalid IP Address!!")
             }
               
         }
 
         fetchIp(searchTerm || "me");
-    }, [searchTerm])
+    }, [ searchTerm ])
+
 
     let content;
     if(loading){
@@ -29,6 +36,11 @@ const Challenge = () => {
     }
     if(!loading){
         content = <span>{result.ip}</span>
+    }
+
+    let errorMsg;
+    if(errMsg.length > 1) {
+        errorMsg = <div className='red'>{errMsg}</div>
     }
 
     return(
@@ -39,6 +51,7 @@ const Challenge = () => {
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
             />
+            {errorMsg}
             <br></br>
             <br></br> 
             <br></br>
