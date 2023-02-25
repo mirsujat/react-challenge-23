@@ -2,23 +2,22 @@ import React, {useState, useEffect} from 'react';
 
 
 const Challenge = () => {
-
-    const [searchTerm, setSearchTerm] = useState("");
+    const [ searchTerm, setSearchTerm ] = useState("");
     const [ result, setResult ] = useState({});
-    const [ loading, setLoading ] = useState(true);
-    const [ errorMsg, setErrorMsg ] = useState("");
+    const [ loading, setLoading ] = useState({loading: true});
+    const [ errMsg, setErrMsg ] = useState("");
     const [ focus, setFocus ] = useState(false);
 
 
+
+    let content;
+    let error;
+    
 
     useEffect(() =>{
         fetchIp(searchTerm || "me");
     }, [ searchTerm ])
 
-
-    let content;
-    let errorContent;
-    
 
     const fetchIp = (param) =>{
         const IPREGEX = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
@@ -27,68 +26,57 @@ const Challenge = () => {
             .then(res => res.json())
             .then(res => res.ip)
             .then(data =>{
-                setResult(data);
-                setLoading(false);
-                setErrorMsg("");
-               
+                setResult({ data: data });
+                setLoading({loading: false});
+                setErrMsg("");
             })
         }else{
-            setErrorMsg("Invalid IP Address!!")
+            setErrMsg("Invalid IP Address!! Make Sure You Typed Correct IP Address.")
         }
     }
 
-    const onFocusHandler = () =>{
-       setFocus(true);
-      return errorContent = null;
+
+    const onFocusHandler  = () =>{
+        setFocus(true);
     }
+
     const onBlurHandler = () =>{
         setFocus(false);
-        if( errorMsg.length > 1 && !focus ){
-            errorContent = <span className="red">{errorMsg}</span>  
-        }
-    
     }
+    
 
-
-
-
-    if(loading){
+    if(loading.loading){
         content = <span>Loading.....</span>
     }
-    if(!loading){
-        content = <span>{result.ip}</span>
+    if(!loading.loading){
+        content = <span>{result.data.ip}</span>
     }
 
-    
+    if(errMsg.length > 1 && !focus){
+        error = <span className="red">{errMsg}</span>
+    }
 
 
-
-
-
-
-
-
-    return(
+    return (
         <div>
-            <h1>Find Your IP Address: </h1>
-
-            <input 
-                type="search"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                onFocus={onFocusHandler}
-                onBlur={onBlurHandler}
-            />
-            <div>{errorContent}</div>
+            <h1>Find Your IP Address:</h1>
+            <div>
+                <input 
+                    type="search"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    onFocus={onFocusHandler}
+                    onBlur={onBlurHandler}
+                />
+                <div>{error}</div>
+            </div>
             <br></br>
             <br></br>
             <br></br>
             <br></br>
-            <br></br>
-            <br></br>
-            <h3>Your IP Address is : {content}</h3>
+            <h3>This is IP Address: {content}</h3>
         </div>
-    )
-};
+    );
+}
 
 export default Challenge;
