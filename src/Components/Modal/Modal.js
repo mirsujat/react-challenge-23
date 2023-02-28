@@ -31,5 +31,38 @@ class Portal extends Component{
     }
 }
 
-const Backdrop = props => <div className={props.className} {...props} />;
+const Backdrop = props => <div className="backdrop" {...props} />;
 
+
+class Modal extends Component{
+
+    handleClose = () =>{
+        this.props.onClose();
+    }
+
+    render(){
+
+        let content = null;
+        if(this.props.isOpen){
+            content = (
+                <>
+                    <Backdrop onClick={this.handleClose}></Backdrop>
+                    <div
+                        open={this.props.isOpen}
+                    >
+                        {this.props.children}
+                    </div>
+                </>
+            )
+        }
+
+
+        return(
+            <Portal>
+                <>{content}</>
+            </Portal>
+        )
+    }
+}
+
+export default Modal;
