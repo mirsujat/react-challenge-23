@@ -30,9 +30,6 @@ class Portal extends Component{
 const Backdrop = props => <div className={props.className} {...props} />
 
 class Modal extends Component{
-    constructor(props){
-        super(props);
-    }
 
     handleClose = () =>{
         this.props.onClose();
