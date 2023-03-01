@@ -19,10 +19,17 @@ class Challenge extends Component {
     render() {
         return (
             <div>
-                <button onClick={this.openModal}>Show Modal</button>
+                <button 
+                onClick={this.openModal}
+                className='focusAfterClose'
+                >
+                Show Modal
+                </button>
                 <Modal
                     isOpen={this.state.isOpen}
                     onClose={this.closeModal}
+                    focusAfterClose='focusAfterClose'
+                    label='Modal Title'
                 >
                     <h3>Modal Content</h3>
                 </Modal>

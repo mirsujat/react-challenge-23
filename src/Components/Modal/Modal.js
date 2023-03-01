@@ -27,11 +27,54 @@ class Portal extends Component{
     }
 }
 
+//backdrop
 const Backdrop = props => <div className={props.className} {...props} />
 
+
+//Modal
 class Modal extends Component{
+    constructor(props){
+        super(props);
+
+        //first focusable element inside modal
+        this.firstFocus = React.createRef();
+
+
+        this.focusAfterClose = null;
+        if(this.props.focusAfterClose){
+            this.focusAfterClose = window.document.getElementsByClassName('focusAfterClose');
+        }
+
+        this.state = {
+            focus: false
+        }
+    }
+
+    componentDidUpdate() {
+        this.setFocus();
+    }
+
+    setFocus = () =>{
+        if(!this.props.isOpen) return;
+        if(this.props.isOpen){
+            this.firstFocus.current.focus();
+        }
+    }
+
+    onFocus = () =>{
+        this.setState({ focus: true });
+    }
+    onBlur = () =>{
+        this.setFocus({ focus: false });
+    }
+
 
     handleClose = () =>{
+        if(this.props.focusAfterClose){
+            this.props.onClose();
+            this.focusAfterClose[0].focus();
+        }
+
         this.props.onClose();
     }
 
@@ -58,6 +101,18 @@ class Modal extends Component{
                 open={this.props.isOpen}
 
                 >
+                <div>
+                    <span
+                        ref={this.firstFocus}
+                        tabIndex='0'
+                        onFocus={this.onFocus}
+                        onBlur={this.onBlur}
+                        onClick={this.setFocus}
+
+                    >
+                        {this.props.label}
+                    </span>
+                </div>
                     {this.props.children}
                 </div>
                 </>
