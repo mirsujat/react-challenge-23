@@ -48,6 +48,7 @@ class Modal extends Component{
                 <>
                     <Backdrop onClick={this.handleClose}></Backdrop>
                     <div
+                        role="dialog"
                         open={this.props.isOpen}
                     >
                         {this.props.children}
