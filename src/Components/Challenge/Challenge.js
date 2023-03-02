@@ -6,11 +6,11 @@ class Challenge extends Component {
         super(props);
         this.state = { 
             isOpen: false,
-         };
+         }
     }
 
     openModal = () =>{
-        this.setState({ isOpen : true });
+        this.setState({  isOpen: true });
     }
     closeModal = () =>{
         this.setState({ isOpen: false });
@@ -19,19 +19,14 @@ class Challenge extends Component {
     render() {
         return (
             <div>
-                <button 
-                onClick={this.openModal}
-                className='focusAfterClose'
-                >
-                Show Modal
-                </button>
+                <button onClick={this.openModal} className='focusAfterClose' >show modal</button>
                 <Modal
                     isOpen={this.state.isOpen}
                     onClose={this.closeModal}
-                    focusAfterClose='focusAfterClose'
                     label='Modal Title'
+                    focusAfterClose='focusAfterClose'
                 >
-                    <h3>Modal Content</h3>
+                    <h4>Modal ContentArea</h4>
                 </Modal>
             </div>
         );

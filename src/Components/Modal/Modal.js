@@ -27,8 +27,8 @@ class Portal extends Component{
     }
 }
 
-//backdrop
-const Backdrop = props => <div className={props.className} {...props} />
+//Backdrop
+const Backdrop = props => <div className={props.className} {...props} />;
 
 
 //Modal
@@ -39,85 +39,86 @@ class Modal extends Component{
         //first focusable element inside modal
         this.firstFocus = React.createRef();
 
+        this.state = { focus: false };
 
         this.focusAfterClose = null;
         if(this.props.focusAfterClose){
             this.focusAfterClose = window.document.getElementsByClassName('focusAfterClose');
         }
 
-        this.state = {
-            focus: false
-        }
+
     }
 
-    componentDidUpdate() {
+    componentDidUpdate(){
         this.setFocus();
     }
 
     setFocus = () =>{
-        if(!this.props.isOpen) return;
-        if(this.props.isOpen){
+        if(this.props.isOpen && this.props.label){
             this.firstFocus.current.focus();
         }
     }
 
-    onFocus = () =>{
-        this.setState({ focus: true });
+    onFocus = () => {
+        if(this.props.isOpen){
+            this.setState({ focus: true });
+        }
     }
     onBlur = () =>{
-        this.setFocus({ focus: false });
+        if(!this.props.isOpen){
+            this.setState({ focus: false });
+        }
     }
-
 
     handleClose = () =>{
         if(this.props.focusAfterClose){
             this.props.onClose();
             this.focusAfterClose[0].focus();
+        }else{
+            this.props.onClose();
         }
-
-        this.props.onClose();
+        
     }
-
 
     render(){
 
         let content = null;
         let backdropClass = 'dialog-backdrop';
-        let modalClass = 'hidden'
+        let modalClass = 'hidden';
+
         if(!this.props.isOpen){
-            body.classList.remove('has-dialol');
+            body.classList.remove('has-dialog');
         }
+
         if(this.props.isOpen){
             backdropClass = 'dialog-backdrop active';
             modalClass = 'no-scroll';
             body.classList.add('has-dialog');
-
             content = (
                 <>
-                <Backdrop className={backdropClass} onClick={this.handleClose} ></Backdrop>
-                <div
-                role='dialog'
-                className={modalClass}
-                open={this.props.isOpen}
-
-                >
-                <div>
-                    <span
+                    <Backdrop className={backdropClass} onClick={this.handleClose} ></Backdrop>
+                    <div
+                        role='dialog'
+                        open={this.props.isOpen}
+                        className={modalClass}
+                    >
+                    <div>
+                        <span 
+                        tabIndex='0' 
                         ref={this.firstFocus}
-                        tabIndex='0'
                         onFocus={this.onFocus}
                         onBlur={this.onBlur}
-                        onClick={this.setFocus}
+                        >
+                            {this.props.label}
+                        </span>
+                    </div>
 
-                    >
-                        {this.props.label}
-                    </span>
-                </div>
-                    {this.props.children}
-                </div>
+                        {this.props.children}
+                    </div>
                 </>
             )
         }
+
 
         return(
             <Portal>
@@ -128,3 +129,4 @@ class Modal extends Component{
 }
 
 export default Modal;
+
