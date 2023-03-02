@@ -38,6 +38,15 @@ class Modal extends Component{
 
         //first focusable element inside modal
         this.firstFocus = React.createRef();
+        //previous focusable element outside modal
+        this.prevElmRef = React.createRef();
+
+        //next focusable element outside modal
+        this.nextElmRef = React.createRef();
+
+        //last focusable element inside modal
+        this.lastFocus = React.createRef();
+
 
         this.state = { focus: false };
 
@@ -70,6 +79,22 @@ class Modal extends Component{
         }
     }
 
+    onKeyUp = (e) =>{
+        const rootNode = document.getElementById(`${this.props.id}`);
+        if(rootNode.hasChildNodes()){
+            if(rootNode.nextSibling.contains(e.target)){
+                this.setFocus();
+            }
+            if(rootNode.previousSibling.contains(e.target)){
+                this.lastFocus.current.focus();
+            }
+        }
+        if(e.keyCode === 27){
+            this.handleClose();
+        }
+    }
+
+
     handleClose = () =>{
         if(this.props.focusAfterClose){
             this.props.onClose();
@@ -79,6 +104,9 @@ class Modal extends Component{
         }
         
     }
+
+
+
 
     render(){
 
@@ -97,10 +125,13 @@ class Modal extends Component{
             content = (
                 <>
                     <Backdrop className={backdropClass} onClick={this.handleClose} ></Backdrop>
+                    <div tabIndex='0' ref={this.prevElmRef} onKeyUp={(e) => this.onKeyUp(e)} ></div>
                     <div
                         role='dialog'
+                        id={this.props.id}
                         open={this.props.isOpen}
                         className={modalClass}
+                        onKeyUp={(e) => this.onKeyUp(e)}
                     >
                     <div>
                         <span 
@@ -114,7 +145,12 @@ class Modal extends Component{
                     </div>
 
                         {this.props.children}
+
+                        <button ref={this.lastFocus} >Cancel</button>
+
                     </div>
+
+                    <div tabIndex='0' ref={this.nextElmRef} onKeyUp={(e) => this.onKeyUp(e)}></div>
                 </>
             )
         }

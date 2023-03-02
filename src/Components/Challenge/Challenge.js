@@ -21,6 +21,7 @@ class Challenge extends Component {
             <div>
                 <button onClick={this.openModal} className='focusAfterClose' >show modal</button>
                 <Modal
+                    id='dialog1'
                     isOpen={this.state.isOpen}
                     onClose={this.closeModal}
                     label='Modal Title'
