@@ -28,6 +28,7 @@ class Challenge extends Component {
                     focusAfterClose='focusAfterClose'
                 >
                     <h4>Modal ContentArea</h4>
+                    <input type="text" />
                 </Modal>
             </div>
         );

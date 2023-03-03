@@ -63,7 +63,7 @@ class Modal extends Component{
     }
 
     setFocus = () =>{
-        if(this.props.isOpen && this.props.label){
+        if(this.props.isOpen ){
             this.firstFocus.current.focus();
         }
     }
