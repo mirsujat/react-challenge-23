@@ -128,6 +128,8 @@ class Modal extends Component{
                     <div tabIndex='0' ref={this.prevElmRef} onKeyUp={(e) => this.onKeyUp(e)} ></div>
                     <div
                         role='dialog'
+                        area-modal="true"
+                        aria-labelledby={this.props.label}
                         id={this.props.id}
                         open={this.props.isOpen}
                         className={modalClass}
