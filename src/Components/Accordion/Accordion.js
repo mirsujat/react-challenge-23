@@ -8,11 +8,15 @@ class Accordion extends Component {
 
         const openSection = {};
 
-        this.state = { openSection };
+        this.state = { openSection};
+
     }
+
+
 
     onClickOpenSection = (label) =>{
         const isOpen = !!this.state.openSection[label];
+    
 
         if(this.props.allowMulti){
             this.setState({
@@ -24,7 +28,8 @@ class Accordion extends Component {
         }else{
             this.setState({
                 openSection: {
-                    [label] : !isOpen
+                    [label] : !isOpen,
+                    expanded: true
                 } 
             })
 
@@ -35,16 +40,35 @@ class Accordion extends Component {
     render() {
         return (
             <div>
-                <div>
+                <div id="accordionGroup" className="accordion">
                     {this.props.children.map((child, i) =>(
                         <div key={i}>
-                            <p 
+                            <h3 
                                 open={this.state.openSection[child.props.label]}
                                 onClick={() => this.onClickOpenSection(child.props.label)} 
                             >
+                            <button
+                            type='button'
+                            aria-expanded={ this.state.openSection[child.props.label] ? this.state.openSection.expanded : false}
+                            className="accordion-trigger"
+                            area-controls={`section${i}`}
+                            id={`accordion${i}`}
+                            >
+                            <span className='accordion-title'>
                                 {child.props.label}
-                            </p>
-                            {this.state.openSection[child.props.label] && child.props.children}
+                                <span className="accordion-icon"></span>
+                            
+                            </span>
+                            </button>
+                            </h3>
+                            <div 
+                            id={`section${i}`}
+                            role='region'
+                            area-aria-labelledby={`accordion${i}`}
+                            className='accordion-panel'
+                            >
+                                {this.state.openSection[child.props.label] && child.props.children}
+                            </div>
                         </div>
                     ))}
                 </div>

@@ -1,5 +1,6 @@
 import './App.css';
-import Challenge from './Components/Challenge/Challenge';
+import Accordion from './Components/Accordion/Accordion';
+
 
 
 
@@ -11,7 +12,18 @@ const  App = () => {
   return (
     <div className="App">
       Hello world From App
-     <Challenge></Challenge>
+      <Accordion>
+        <div label="one">
+         <input type='text' />
+        </div>
+        <div label="two">
+          <input type='text' />
+        </div>
+        <div label="three">
+          <input type='text' />
+        </div>
+      
+      </Accordion>
 
     </div>
   );
