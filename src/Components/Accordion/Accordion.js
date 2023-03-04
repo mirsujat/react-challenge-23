@@ -51,8 +51,8 @@ class Accordion extends Component {
                             type='button'
                             aria-expanded={ this.state.openSection[child.props.label] ? this.state.openSection.expanded : false}
                             className="accordion-trigger"
-                            area-controls={`section${i}`}
-                            id={`accordion${i}`}
+                            aria-controls={`section${i + 1}`}
+                            id={`accordion${i + 1}`}
                             >
                             <span className='accordion-title'>
                                 {child.props.label}
@@ -62,9 +62,9 @@ class Accordion extends Component {
                             </button>
                             </h3>
                             <div 
-                            id={`section${i}`}
+                            id={`section${i + 1}`}
                             role='region'
-                            area-aria-labelledby={`accordion${i}`}
+                            aria-labelledby={`accordion${i + 1}`}
                             className='accordion-panel'
                             >
                                 {this.state.openSection[child.props.label] && child.props.children}
