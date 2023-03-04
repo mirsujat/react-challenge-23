@@ -6,30 +6,36 @@ class Tabs extends Component {
     constructor(props) {
         super(props);
         this.state = { 
-            activeTab: this.props.children[0].props.label,
+            selected : this.props.children[0].props.label,
+
          };
     }
 
     onClickTabItem = (tab)=>{
-        return this.setState({activeTab: tab})
+        return this.setState({selected: tab})
     }
 
     render() {
         return (
-            <div>
-            <ol>
+            <div role='tabs'>
+            <div role='tablist'>
                 {this.props.children.map((child, i) =>(
-                    <li
+                    <button
                         key={i}
                         onClick={ () => this.onClickTabItem(child.props.label)}
-                        selected={this.state.activeTab}
+                        aria-selected={this.state.selected}
+                        id={child.props.label + `${i + 1}`}
+                        role='tab'
+                        aria-controls={`tab` + `${i + 1}`}
+                        className="tab" 
+
                     >
                     {child.props.label}
                     
-                    </li>
+                    </button>
 
                 ))}
-            </ol>
+            </div>
                
                 <div>
                     {this.props.children.map((child, i) =>{
