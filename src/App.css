@@ -207,3 +207,113 @@ input {
   font-size: inherit;
   padding: 0.3em 0.5em;
 }
+
+
+/*Tabs*/
+.tabs {
+  display: block;
+  width: 50em;
+  font-family: "lucida grande", sans-serif;
+}
+
+[role="tablist"] {
+  display: flex;
+  width: 50em;
+  margin: 0 0 -0.1em;
+  overflow: visible;
+}
+
+[role="tab"] {
+  position: relative;
+  margin: 0;
+  padding: 0.5em;
+  border: 1px solid rgba(183, 183, 184, 1);
+  overflow: visible;
+  font-family: inherit;
+  font-size: inherit;
+  background: rgba(237, 239, 243, 1);
+}
+
+[role="tab"]:hover::before,
+[role="tab"]:focus::before,
+[role="tab"][aria-selected="true"]::before {
+  position: absolute;
+  bottom: 100%;
+  right: -1px;
+  left: -1px;
+  border-radius: 0.2em 0.2em 0 0;
+  border-top: 3px solid rgb(170, 50, 220, 0.6);
+  content: "";
+}
+
+[role="tab"][aria-selected="true"] {
+  border-radius: 0;
+  background: rgb(251, 252, 254, 1);
+  outline: 0;
+}
+
+[role="tab"][aria-selected="true"]:not(:focus):not(:hover)::before {
+  border-top: 5px solid rgb(68, 129, 235, 1);
+}
+
+[role="tab"][aria-selected="true"]::after {
+  position: absolute;
+  z-index: 3;
+  bottom: -1px;
+  right: 0;
+  left: 0;
+  height: 0.3em;
+  background: rgb(251, 252, 254, 1);
+  box-shadow: none;
+  content: "";
+}
+
+[role="tab"]:hover,
+[role="tab"]:focus,
+[role="tab"]:active {
+  outline: 0;
+  border-radius: 0;
+  color: inherit;
+}
+
+[role="tab"]:hover::before,
+[role="tab"]:focus::before {
+  border-color: rgb(68, 129, 235, 1);
+}
+
+[role="tabpanel"] {
+  position: relative;
+  z-index: 2;
+  padding: 0.5em 0.5em 0.7em;
+  border: 1px solid rgb(183 183 184);
+  border-radius: 0 0.2em 0.2em 0.2em;
+  box-shadow: 0 0 0.2em rgba(183, 183, 184, 1);
+  background: rgba(251, 252, 254, 1);
+}
+
+[role="tabpanel"]:focus {
+  border-color: rgba(74, 73, 75, 0.6);
+  box-shadow: 0 0 0.2em rgba(205, 202, 206, 0.6);
+  outline: 0;
+}
+
+[role="tabpanel"]:focus::after {
+  position: absolute;
+  bottom: 0;
+  right: -1px;
+  left: -1px;
+  border-bottom: 3px solid rgb(241 116 53);
+  border-radius: 0 0 0.2em 0.2em;
+  content: "";
+}
+
+[role="tabpanel"] p {
+  margin: 0;
+}
+
+[role="tabpanel"] * + p {
+  margin-top: 1em;
+}
+[role="tabpanel"][aria-hidden="true"] {
+  display: none;
+}

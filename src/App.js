@@ -1,6 +1,5 @@
 import './App.css';
-import Accordion from './Components/Accordion/Accordion';
-
+import Tabs from './Components/Tabs/Tabs';
 
 
 
@@ -12,18 +11,17 @@ const  App = () => {
   return (
     <div className="App">
       Hello world From App
-      <Accordion>
-        <div label="one">
-         <input type='text' />
+      <Tabs>
+        <div label='one'>
+          <h1>11111111111111</h1>
         </div>
-        <div label="two">
-          <input type='text' />
+         <div label='two'>
+          <h1>22222222222</h1>
         </div>
-        <div label="three">
-          <input type='text' />
+         <div label='three'>
+          <h1>33333333333333</h1>
         </div>
-      
-      </Accordion>
+      </Tabs>
 
     </div>
   );
