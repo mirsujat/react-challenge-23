@@ -51,12 +51,9 @@ class Tabs extends Component {
     //For keyboard accessibiilty
     nextTab = (tab) =>{
         let index = this.tabs.indexOf(tab);
-            console.log(this.tabs.length);
-        
         if(index < this.tabs.length - 1){
              let newIndex = index + 1;
             this.selectTab(this.tabs[newIndex].props.label)
-            console.log(newIndex);
         }  
         
     }
