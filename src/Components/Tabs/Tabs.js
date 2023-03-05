@@ -50,12 +50,15 @@ class Tabs extends Component {
 
     //For keyboard accessibiilty
     nextTab = (tab) =>{
-        let index = 0;
-            console.log(index);
-  
-        if(index < this.tabs.length - 1) this.selectTab(this.tabs[index + 1].props.label)
+        let index = this.tabs.indexOf(tab);
+            console.log(this.tabs.length);
         
-        console.log(index + 1);
+        if(index < this.tabs.length - 1){
+             let newIndex = index + 1;
+            this.selectTab(this.tabs[newIndex].props.label)
+            console.log(newIndex);
+        }  
+        
     }
     previousTab = (tab) =>{
         let index = this.tabs.indexOf(tab);
@@ -104,7 +107,7 @@ class Tabs extends Component {
                     <button
                         key={i}
                         onClick={ (e) => this.onClickTabItem(e, tab.props.label)}
-                        onKeyUp={(e) => this.handleKeyUp(e, tab.props.label)}
+                        onKeyUp={(e) => this.handleKeyUp(e, tab)}
                         aria-selected={tab.props.label === this.state.selected}
                         tabIndex={tab.props.label === this.state.selected ? 0 : -1}
                         id={tab.props.label + `${i}`}
