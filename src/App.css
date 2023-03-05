@@ -212,13 +212,13 @@ input {
 /*Tabs*/
 .tabs {
   display: block;
-  width: 50em;
+  width: 35em;
   font-family: "lucida grande", sans-serif;
 }
 
 [role="tablist"] {
   display: flex;
-  width: 50em;
+  width: 35em;
   margin: 0 0 -0.1em;
   overflow: visible;
 }

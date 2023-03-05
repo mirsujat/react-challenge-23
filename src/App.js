@@ -12,13 +12,13 @@ const  App = () => {
     <div className="App">
       Hello world From App
       <Tabs>
-        <div label='one'>
+        <div label='personal Address'>
           <h1>11111111111111</h1>
         </div>
-         <div label='two'>
+         <div label='shipping address'>
           <h1>22222222222</h1>
         </div>
-         <div label='three'>
+         <div label='payment'>
           <h1>33333333333333</h1>
         </div>
       </Tabs>
