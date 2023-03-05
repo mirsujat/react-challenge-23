@@ -42,12 +42,15 @@ class Tabs extends Component {
 
     onClickTabItem = (e, tab)=>{
         e.preventDefault();
+        
         this.selectTab(tab);
+   
+
     }
 
     //For keyboard accessibiilty
     nextTab = (tab) =>{
-        let index = this.tabs.indexOf(tab);
+        let index = 0;
             console.log(index);
   
         if(index < this.tabs.length - 1) this.selectTab(this.tabs[index + 1].props.label)
