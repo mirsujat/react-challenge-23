@@ -10,7 +10,8 @@ import Tabs from './Components/Tabs/Tabs';
 const  App = () => {
   return (
     <div className="App">
-      Hello world From App
+    <h3>Hello world From App</h3>
+     
       <Tabs>
         <div label='personal Address'>
           <h1>11111111111111</h1>

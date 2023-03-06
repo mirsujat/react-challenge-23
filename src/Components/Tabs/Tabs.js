@@ -14,7 +14,7 @@ class Tabs extends Component {
 
         this.activeLink = React.createRef();
         this.NavigationKeys = {
-            tabKey: 13,
+            tabKey: 9,
             end: 35,
             home: 36,
             left: 37,
@@ -40,11 +40,8 @@ class Tabs extends Component {
         this.setState({selected: tab})
     }
 
-    onClickTabItem = (e, tab)=>{
-        e.preventDefault();
-        
+    onClickTabItem = (tab)=>{
         this.selectTab(tab);
-   
 
     }
 
@@ -56,10 +53,14 @@ class Tabs extends Component {
             this.selectTab(this.tabs[newIndex].props.label)
         }  
         
+        
     }
     previousTab = (tab) =>{
         let index = this.tabs.indexOf(tab);
-        if(index > 0) this.selectTab(this.tabs[index - 1]);
+        if(index > 0){
+            let newIndex = index - 1;
+            this.selectTab(this.tabs[newIndex].props.label);
+        } 
     }
     firstTab = (tab) =>{
         let index = this.tabs.indexOf(tab);
@@ -73,10 +74,13 @@ class Tabs extends Component {
     handleKeyUp = (e, tab) =>{
         
         let key = e.keyCode;
+
        e.preventDefault();
+
+       console.log(e.keyCode);
         switch(key){
             case this.NavigationKeys.tabKey:
-                this.selectTab(tab)
+                this.nextTab(tab)
                 break;
             case this.NavigationKeys.right:
                 this.nextTab(tab)
@@ -103,9 +107,9 @@ class Tabs extends Component {
                 {this.tabs.map((tab, i) =>(
                     <button
                         key={i}
-                        onClick={ (e) => this.onClickTabItem(e, tab.props.label)}
+                        onClick={ () => this.onClickTabItem(tab.props.label)}
                         onKeyUp={(e) => this.handleKeyUp(e, tab)}
-                        aria-selected={tab.props.label === this.state.selected}
+                        aria-selected={!!(this.state.selected === tab.props.label) ? true : false }
                         tabIndex={tab.props.label === this.state.selected ? 0 : -1}
                         id={tab.props.label + `${i}`}
                         role='tab'
