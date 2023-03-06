@@ -7,10 +7,12 @@ class Tabs extends Component {
         super(props);
 
         this.tabs = this.props.children;
+        
         this.state = { 
-            selected : false
-
+            selected : {}
         };
+       
+
 
         this.activeLink = React.createRef();
         this.NavigationKeys = {
@@ -26,18 +28,21 @@ class Tabs extends Component {
     }
 
     componentDidMount() {
-        let selected = this.tabs.find(tab => tab.props.selected) ||  this.tabs[0].props.label;
-        this.setState({ selected })
+        let selected =  this.tabs[0].props.label;
+        this.setState({ selected: {[selected] : true }});
+       console.log(selected ) ;
+       
     }
 
-    componentDidUpdate(){
-        this.activeLink.focus();
-    }
+    // componentDidUpdate(){
+    //     this.activeLink.focus();
+    // }
 
 
 
     selectTab = (tab) =>{
-        this.setState({selected: tab})
+        const isOpen = !!this.state.selected[tab]
+        this.setState({ selected: { [tab] : !isOpen, active: true }})
     }
 
     onClickTabItem = (tab)=>{
@@ -109,8 +114,8 @@ class Tabs extends Component {
                         key={i}
                         onClick={ () => this.onClickTabItem(tab.props.label)}
                         onKeyUp={(e) => this.handleKeyUp(e, tab)}
-                        aria-selected={!!(this.state.selected === tab.props.label) ? true : false }
-                        tabIndex={tab.props.label === this.state.selected ? 0 : -1}
+                        aria-selected={this.state.selected[tab.props.label] ? true : false }
+                        tabIndex={this.state.selected[tab.props.label] ? 0 : -1}
                         id={tab.props.label + `${i}`}
                         role='tab'
                         aria-controls={tab.props.label}
@@ -128,9 +133,8 @@ class Tabs extends Component {
                
                 <div>
                     {this.tabs.map((tab, i) =>{
-                        if(this.state.selected !== tab.props.label) return undefined;
-                        
-                        return (
+                        if(this.state.selected[tab.props.label]){
+                            return (
                             
                             <div
                             key={i}
@@ -145,6 +149,9 @@ class Tabs extends Component {
                             </div>
                             
                             );
+                        } ;
+                        
+                        
                     })}
                 </div>
 
