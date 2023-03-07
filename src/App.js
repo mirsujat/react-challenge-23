@@ -1,5 +1,6 @@
 import './App.css';
-import Tabs from './Components/Tabs/Tabs';
+import Challenge from './Components/Challenge/Challenge';
+
 
 
 
@@ -11,18 +12,18 @@ const  App = () => {
   return (
     <div className="App">
     <h3>Hello world From App</h3>
+     <Challenge>
+      <div label='one'>
+        <h3>11111111111111</h3>
+      </div>
+      <div label='two'>
+        <h3>22222222222222</h3>
+      </div>
+      <div label='three'>
+        <h3>3333333333333333</h3>
+      </div>
      
-      <Tabs>
-        <div label='personal Address'>
-          <h1>11111111111111</h1>
-        </div>
-         <div label='shipping address'>
-          <h1>22222222222</h1>
-        </div>
-         <div label='payment'>
-          <h1>33333333333333</h1>
-        </div>
-      </Tabs>
+     </Challenge>
 
     </div>
   );

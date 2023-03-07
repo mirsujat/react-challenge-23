@@ -1,35 +1,48 @@
 import React, { Component } from 'react';
-import Modal from '../Modal/Modal';
+
 
 class Challenge extends Component {
     constructor(props) {
         super(props);
-        this.state = { 
-            isOpen: false,
-        }
+        this.state = { activeTab: this.props.children[0].props.label };
     }
 
-    openModal = () =>{
-        this.setState({  isOpen: true });
+    onClickTabItem = (tab) =>{
+        this.setState({  activeTab : tab })
     }
-    closeModal = () =>{
-        this.setState({ isOpen: false });
-    }
+
+    
+
 
     render() {
         return (
             <div>
-                <button onClick={this.openModal} className='focusAfterClose' >show modal</button>
-                <Modal
-                    id='dialog1'
-                    isOpen={this.state.isOpen}
-                    onClose={this.closeModal}
-                    label='Modal Title'
-                    focusAfterClose='focusAfterClose'
+            <h2>React Accessible Tab Component</h2>
+            <div className='tablist' role='tablist'>
+            {this.props.children.map((child, i) =>(
+                <button
+                key={i}
+                role='tab'
+
+                onClick={() => this.onClickTabItem(child.props.label)}
+
                 >
-                    <h4>Modal ContentArea</h4>
-                    <input type="text" />
-                </Modal>
+                    {child.props.label}
+                </button>
+            ))}
+            
+            </div>
+            <div>
+                {this.props.children.map((child, i) =>{
+                    if(this.state.activeTab !== child.props.label) return undefined;
+                    return(
+                        <div>
+                            {child.props.children}
+                        </div>
+                    )
+                })}
+            </div>
+            
             </div>
         );
     }
