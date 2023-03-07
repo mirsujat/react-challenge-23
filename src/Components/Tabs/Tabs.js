@@ -114,15 +114,14 @@ class Tabs extends Component {
                         key={i}
                         role='tab'
                         id={`tab-${i + 1}`}
+                        aria-selected={!!this.state.selected[tab.props.label] ? true : false}
                         aria-controls={`panel-${i + 1}`}
                         tabIndex={this.state.selected[tab.props.label] ? 0 : -1}
-                        aria-selected={!!this.state.selected[tab.props.label] ? true : false}
                         onClick={ () => this.onClickTabItem(tab.props.label)}
                         onKeyUp={(e) => this.handleKeyUp(e, tab)}
                         className="tab" 
                         ref={(el) =>{if(this.state.selected[tab.props.label]) this.activeLink = el}}
                         
-
                     >
                     {tab.props.label}
                     
@@ -136,14 +135,12 @@ class Tabs extends Component {
                             return (
                             
                             <div
-                            role='tabpanel'
                             key={i}
+                            role='tabpanel'
                             id={`panel-${i + 1}`}
-                            tabIndex='0'
                             aria-labelledby={`tab-${i + 1}`}
                             aria-hidden={!!this.state.selected[tab.props.label] ? false : true}
-                            
-
+                            tabIndex='0'
                             >
                             {tab.props.children}
                             </div>
