@@ -114,7 +114,7 @@ class Tabs extends Component {
                         key={i}
                         role='tab'
                         id={`tab-${i + 1}`}
-                        aria-selected={!!this.state.selected[tab.props.label] ? true : false}
+                        aria-selected={!!this.state.selected[tab.props.label] }
                         aria-controls={`panel-${i + 1}`}
                         tabIndex={this.state.selected[tab.props.label] ? 0 : -1}
                         onClick={ () => this.onClickTabItem(tab.props.label)}
