@@ -6,7 +6,7 @@ class Challenge extends Component {
         super(props);
         this.state = { 
             isOpen: false,
-         }
+        }
     }
 
     openModal = () =>{
