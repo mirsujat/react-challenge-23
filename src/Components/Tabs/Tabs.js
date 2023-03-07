@@ -34,15 +34,15 @@ class Tabs extends Component {
        
     }
 
-    // componentDidUpdate(){
-    //     this.activeLink.focus();
-    // }
+    componentDidUpdate(){
+        this.activeLink.focus();
+    }
 
 
 
     selectTab = (tab) =>{
         const isOpen = !!this.state.selected[tab]
-        this.setState({ selected: { [tab] : !isOpen, active: true }})
+        this.setState({ selected: { [tab] : !isOpen }})
     }
 
     onClickTabItem = (tab)=>{
@@ -112,15 +112,15 @@ class Tabs extends Component {
                 {this.tabs.map((tab, i) =>(
                     <button
                         key={i}
+                        role='tab'
+                        id={`tab-${i + 1}`}
+                        aria-controls={`panel-${i + 1}`}
+                        tabIndex={this.state.selected[tab.props.label] ? 0 : -1}
+                        aria-selected={!!this.state.selected[tab.props.label] ? true : false}
                         onClick={ () => this.onClickTabItem(tab.props.label)}
                         onKeyUp={(e) => this.handleKeyUp(e, tab)}
-                        aria-selected={this.state.selected[tab.props.label] ? true : false }
-                        tabIndex={this.state.selected[tab.props.label] ? 0 : -1}
-                        id={tab.props.label + `${i}`}
-                        role='tab'
-                        aria-controls={tab.props.label}
                         className="tab" 
-                        ref={(el) =>{if(tab.props.label === this.state.selected) this.activeLink = el}}
+                        ref={(el) =>{if(this.state.selected[tab.props.label]) this.activeLink = el}}
                         
 
                     >
@@ -130,27 +130,28 @@ class Tabs extends Component {
 
                 ))}
             </div>
-               
                 <div>
                     {this.tabs.map((tab, i) =>{
                         if(this.state.selected[tab.props.label]){
                             return (
                             
                             <div
-                            key={i}
-                            id={tab.props.label}
                             role='tabpanel'
+                            key={i}
+                            id={`panel-${i + 1}`}
                             tabIndex='0'
-                            aria-labelledby={tab.props.label}
-                            aria-hidden={this.state.selected === tab.props.label ? false : true }
+                            aria-labelledby={`tab-${i + 1}`}
+                            aria-hidden={!!this.state.selected[tab.props.label] ? false : true}
+                            
 
                             >
                             {tab.props.children}
                             </div>
                             
                             );
+                        }else{
+                            return null;
                         } ;
-                        
                         
                     })}
                 </div>
