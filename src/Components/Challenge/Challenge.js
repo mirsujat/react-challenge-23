@@ -38,6 +38,7 @@ class Challenge extends Component {
         if(index < this.tabs.length - 1){
             let newIndex = index + 1;
             this.selectTab(this.tabs[newIndex].props.label);
+            console.log(newIndex);
         }
         console.log(index);
     }
